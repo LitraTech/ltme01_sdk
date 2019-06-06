@@ -27,6 +27,9 @@ public:
 
   static const uint16_t REQUEST_PACKET_SIGNATURE = 0xFFFA;
 
+  static const uint16_t REQUEST_EXIT_LOW_POWER = 0x0014;
+  static const uint16_t REQUEST_ENTER_LOW_POWER = 0x0015;
+
 public:
   RequestPacket();
   virtual ~RequestPacket() = 0;

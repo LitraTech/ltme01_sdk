@@ -47,3 +47,39 @@ int ltme01_sdk::Device::readDataPacket(DataPacket& dataPacket, unsigned int time
 {
   return transport_->doDataTransaction(dataPacket, timeout);
 }
+
+bool ltme01_sdk::Device::enterLowPowerMode()
+{
+  ltme01_sdk::GenericRequestPacket requestPacket(RequestPacket::REQUEST_ENTER_LOW_POWER);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  ltme01_sdk::GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == ltme01_sdk::RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+}
+
+bool ltme01_sdk::Device::exitLowPowerMode()
+{
+  ltme01_sdk::GenericRequestPacket requestPacket(RequestPacket::REQUEST_EXIT_LOW_POWER);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  ltme01_sdk::GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == ltme01_sdk::RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+}
