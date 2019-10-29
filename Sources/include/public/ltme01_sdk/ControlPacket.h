@@ -53,6 +53,7 @@ class LTME01_SDK_API GenericRequestPacket : public RequestPacket
 {
 public:
   static const uint16_t REQUEST_DEVICE_DISCOVERY = 0x0000;
+  static const uint16_t REQUEST_GET_DEVICE_SERIAL = 0x000F;
 
 public:
   GenericRequestPacket(uint16_t request);

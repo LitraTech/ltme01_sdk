@@ -47,3 +47,22 @@ int ltme01_sdk::Device::readDataPacket(DataPacket& dataPacket, unsigned int time
 {
   return transport_->doDataTransaction(dataPacket, timeout);
 }
+
+bool ltme01_sdk::Device::getSerial(std::string& serial)
+{
+  GenericRequestPacket requestPacket(GenericRequestPacket::REQUEST_GET_DEVICE_SERIAL);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+
+    serial = std::string((char*)responsePacket.payload(), SERIAL_LENGTH);
+    return true;
+  }
+  else
+    return false;
+}

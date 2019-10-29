@@ -40,9 +40,14 @@ public:
   int readDataPacket(DataPacket& dataPacket);
   int readDataPacket(DataPacket& dataPacket, unsigned int timeout);
 
+  bool getSerial(std::string& serial);
+
 protected:
   std::unique_ptr<Transport> transport_;
   std::atomic<uint16_t> reference_;
+
+private:
+  static const int SERIAL_LENGTH = 20;
 };
 
 }
