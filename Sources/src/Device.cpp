@@ -66,3 +66,33 @@ bool ltme01_sdk::Device::getSerial(std::string& serial)
   else
     return false;
 }
+
+bool ltme01_sdk::Device::getTimestamp(uint32_t& timestamp)
+{
+  GenericRequestPacket requestPacket(GenericRequestPacket::REQUEST_GET_TIMESTAMP);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.result() != 0) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+
+    timestamp = *(uint32_t*)responsePacket.payload();
+    return true;
+  }
+  else
+    return false;
+}
+
+bool ltme01_sdk::Device::resetTimestamp()
+{
+  GenericRequestPacket requestPacket(GenericRequestPacket::REQUEST_RESET_TIMESTAMP);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  return ((result == RESULT_SUCCESS) && (responsePacket.result() == 0));
+}

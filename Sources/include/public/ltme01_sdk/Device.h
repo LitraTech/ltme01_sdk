@@ -41,6 +41,8 @@ public:
   int readDataPacket(DataPacket& dataPacket, unsigned int timeout);
 
   bool getSerial(std::string& serial);
+  bool getTimestamp(uint32_t& timestamp);
+  bool resetTimestamp();
 
 protected:
   std::unique_ptr<Transport> transport_;
