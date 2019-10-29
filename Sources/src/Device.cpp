@@ -96,3 +96,39 @@ bool ltme01_sdk::Device::resetTimestamp()
   int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
   return ((result == RESULT_SUCCESS) && (responsePacket.result() == 0));
 }
+
+bool ltme01_sdk::Device::enterLowPowerMode()
+{
+  GenericRequestPacket requestPacket(GenericRequestPacket::REQUEST_ENTER_LOW_POWER);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+}
+
+bool ltme01_sdk::Device::exitLowPowerMode()
+{
+  GenericRequestPacket requestPacket(GenericRequestPacket::REQUEST_EXIT_LOW_POWER);
+  requestPacket.setReference(reference_++);
+  requestPacket.updateChecksum();
+
+  GenericResponsePacket responsePacket;
+  int result = transport_->doCtrlTransaction(requestPacket, responsePacket, 0);
+  if (result == RESULT_SUCCESS) {
+    if ((!responsePacket.isValid()) || (responsePacket.reference() != requestPacket.reference()))
+      return false;
+    else
+      return true;
+  }
+  else
+    return false;
+}

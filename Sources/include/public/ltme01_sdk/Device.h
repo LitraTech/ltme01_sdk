@@ -43,6 +43,8 @@ public:
   bool getSerial(std::string& serial);
   bool getTimestamp(uint32_t& timestamp);
   bool resetTimestamp();
+  bool enterLowPowerMode();
+  bool exitLowPowerMode();
 
 protected:
   std::unique_ptr<Transport> transport_;

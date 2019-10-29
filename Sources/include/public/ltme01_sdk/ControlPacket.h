@@ -56,6 +56,8 @@ public:
   static const uint16_t REQUEST_GET_DEVICE_SERIAL = 0x000F;
   static const uint16_t REQUEST_GET_TIMESTAMP = 0x0011;
   static const uint16_t REQUEST_RESET_TIMESTAMP = 0x0012;
+  static const uint16_t REQUEST_EXIT_LOW_POWER = 0x0014;
+  static const uint16_t REQUEST_ENTER_LOW_POWER = 0x0015;
 
 public:
   GenericRequestPacket(uint16_t request);
