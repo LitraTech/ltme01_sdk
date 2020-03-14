@@ -40,6 +40,7 @@ public:
   int readDataPacket(DataPacket& dataPacket);
   int readDataPacket(DataPacket& dataPacket, unsigned int timeout);
 
+  bool checkConnectivity();
   bool getSerial(std::string& serial);
   bool getTimestamp(uint32_t& timestamp);
   bool resetTimestamp();
