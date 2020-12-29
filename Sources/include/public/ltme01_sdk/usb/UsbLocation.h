@@ -1,4 +1,4 @@
-#ifndef USB_LOCATION_H
+#if !defined(USB_LOCATION_H) && defined(ENABLE_USB)
 #define USB_LOCATION_H
 
 #include "ltme01_sdk/Common.h"

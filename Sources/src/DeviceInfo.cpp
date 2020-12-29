@@ -29,10 +29,11 @@ ltme01_sdk::DeviceType ltme01_sdk::DeviceInfo::type() const
 {
   const Location& location = *location_;
 
+#ifdef ENABLE_USB
   if (typeid(location) == typeid(UsbLocation))
     return DEVICE_TYPE_USB;
-  else
-    return DEVICE_TYPE_LAN;
+#endif
+  return DEVICE_TYPE_LAN;
 }
 
 const ltme01_sdk::Location& ltme01_sdk::DeviceInfo::location() const

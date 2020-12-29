@@ -1,4 +1,4 @@
-#ifndef USB_TRANSPORT_H
+#if !defined(USB_TRANSPORT_H) && defined(ENABLE_USB)
 #define USB_TRANSPORT_H
 
 #include "ltme01_sdk/Transport.h"

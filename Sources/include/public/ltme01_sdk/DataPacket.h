@@ -54,7 +54,7 @@ private:
 #pragma pack(pop)
 
   DataPacketHeader* header_;
-  uint8_t data_[MAX_DATA_PACKET_SIZE];
+  uint8_t data_[MAX_DATA_PACKET_SIZE] = {0};
 };
 
 }

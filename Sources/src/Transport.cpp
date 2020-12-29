@@ -10,10 +10,11 @@
 
 ltme01_sdk::Transport* ltme01_sdk::Transport::createInstance(const Location& location)
 {
+#ifdef ENABLE_USB
   if (typeid(location) == typeid(UsbLocation))
     return new UsbTransport(dynamic_cast<const UsbLocation&>(location));
-  else if (typeid(location) == typeid(LanLocation))
+#endif
+  if (typeid(location) == typeid(LanLocation))
     return new LanTransport(dynamic_cast<const LanLocation&>(location));
-  else
-    return NULL;
+  return NULL;
 }

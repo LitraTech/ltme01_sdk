@@ -1,3 +1,4 @@
+#ifdef ENABLE_USB
 #include "ltme01_sdk/usb/UsbTransport.h"
 
 #include "ltme01_sdk/Device.h"
@@ -317,3 +318,4 @@ void ltme01_sdk::UsbTransport::ctrlEndpointRxCallback(libusb_transfer* transfer)
   waitItem->cv.notify_one();
   lock.unlock();
 }
+#endif
