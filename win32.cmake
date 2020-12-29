@@ -24,7 +24,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES IMPORT_PREFIX "")
 if(BUILD_SHARED_LIBS)
   target_compile_definitions(${PROJECT_NAME} PRIVATE LTME01_SDK_EXPORTS)
 else()
-  target_compile_definitions(${PROJECT_NAME} PRIVATE LTME01_SDK_STATIC)
+  target_compile_definitions(${PROJECT_NAME} PUBLIC LTME01_SDK_STATIC)
 endif()
 target_include_directories(${PROJECT_NAME}
   PUBLIC "${SDK_INCLUDE_DIR}/public"
