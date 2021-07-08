@@ -37,7 +37,9 @@ private:
   std::thread thread_;
   bool activeFlag_;
 
+#ifdef ENABLE_USB
   std::unique_ptr<UsbDeviceScanner> usbDeviceScanner_;
+#endif
   std::unique_ptr<LanDeviceScanner> lanDeviceScanner_;
 
   std::vector<DeviceInfo> devices_;

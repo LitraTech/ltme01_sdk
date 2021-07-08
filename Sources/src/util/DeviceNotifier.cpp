@@ -5,7 +5,9 @@
 
 #include "ltme01_sdk/ControlPacket.h"
 
+#ifdef ENABLE_USB
 #include <libusb-1.0/libusb.h>
+#endif
 
 #include <asio.hpp>
 
@@ -22,6 +24,7 @@ public:
   virtual std::vector<DeviceInfo> scanDevices() = 0;
 };
 
+#ifdef ENABLE_USB
 class UsbDeviceScanner : public DeviceScanner
 {
 public:
@@ -70,6 +73,7 @@ std::vector<DeviceInfo> UsbDeviceScanner::scanDevices()
 
   return devices;
 }
+#endif
 
 class LanDeviceScanner : public DeviceScanner
 {
@@ -158,7 +162,9 @@ void LanDeviceScanner::responsePacketHandler(const asio::error_code& error, size
 
 ltme01_sdk::DeviceNotifier::DeviceNotifier()
   : activeFlag_(false)
+#ifdef ENABLE_USB
   , usbDeviceScanner_(new UsbDeviceScanner)
+#endif
   , lanDeviceScanner_(new LanDeviceScanner)
 {
 }
@@ -180,8 +186,10 @@ void ltme01_sdk::DeviceNotifier::start()
   thread_ = std::thread([&]() {
     while (activeFlag_) {
       std::vector<DeviceInfo> currentDevices;
+#ifdef ENABLE_USB
       std::vector<DeviceInfo> usbDevices = usbDeviceScanner_->scanDevices();
       currentDevices.insert(currentDevices.end(), usbDevices.begin(), usbDevices.end());
+#endif
       std::vector<DeviceInfo> lanDevices = lanDeviceScanner_->scanDevices();
       currentDevices.insert(currentDevices.end(), lanDevices.begin(), lanDevices.end());
 

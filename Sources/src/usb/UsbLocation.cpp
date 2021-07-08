@@ -1,3 +1,4 @@
+#ifdef ENABLE_USB
 #include "ltme01_sdk/usb/UsbLocation.h"
 
 #include <sstream>
@@ -57,3 +58,4 @@ uint8_t ltme01_sdk::UsbLocation::deviceAddress() const
 {
   return deviceAddress_;
 }
+#endif // ENABLE_USB
